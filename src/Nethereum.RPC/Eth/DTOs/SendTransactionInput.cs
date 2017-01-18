@@ -35,7 +35,10 @@ namespace Nethereum.RPC.Eth.DTOs
         {
         }
 
-
+        public TransactionInput(string data, HexBigInteger gas, string adddressFrom, string[] privateFor) : 
+            base(data, gas, adddressFrom, privateFor)
+        {
+        }
 
         /// <summary>
         ///     nonce: QUANTITY - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use

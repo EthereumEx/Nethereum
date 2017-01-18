@@ -50,6 +50,13 @@ namespace Nethereum.RPC.Eth.DTOs
             From = addressFrom;
         }
 
+        public CallInput(string data, HexBigInteger gas, string addressFrom, string[] privateFor)
+        {
+            Data = data;
+            Gas = gas;
+            From = addressFrom;
+            PrivateFor = privateFor;
+        }
 
         /// <summary>
         ///     DATA, 20 Bytes - The address the transaction is send from.
@@ -99,5 +106,12 @@ namespace Nethereum.RPC.Eth.DTOs
             get { return _data.EnsureHexPrefix(); }
             set { _data = value; }
         }
+
+        /// <summary>
+        ///     privateFor: This is for quorom and is the Public Key of the party
+        /// </summary>
+        [JsonProperty(PropertyName = "privateFor")]
+        public string[] PrivateFor { get; set; }
+
     }
 }

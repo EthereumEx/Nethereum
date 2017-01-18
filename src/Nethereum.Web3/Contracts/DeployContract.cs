@@ -39,6 +39,13 @@ namespace Nethereum.Web3
         }
 
         public Task<string> SendRequestAsync(string abi, string contractByteCode, string from, HexBigInteger gas,
+            string[] privateFor,
+            params object[] values)
+        {
+            var transaction = BuildTransaction(abi, contractByteCode, from, gas, privateFor, values);
+            return ethSendTransaction.SendRequestAsync(transaction);
+        }
+        public Task<string> SendRequestAsync(string abi, string contractByteCode, string from, HexBigInteger gas,
             params object[] values)
         {
             var transaction = BuildTransaction(abi, contractByteCode, from, gas, values);
@@ -144,6 +151,14 @@ namespace Nethereum.Web3
             return encodedData;
         }
 
+        private TransactionInput BuildTransaction(string abi, string contractByteCode, string from, HexBigInteger gas,
+            string[] privateFor, 
+            object[] values)
+        {
+            var encodedData = BuildEncodedData(abi, contractByteCode, values);
+            var transaction = new TransactionInput(encodedData, gas, from, privateFor);
+            return transaction;
+        }
         private TransactionInput BuildTransaction(string abi, string contractByteCode, string from, HexBigInteger gas,
             object[] values)
         {
